@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { assets, dummyDashboardData } from "../../assets/assets";
 import Title from "../../components/owner/Title";
+import { useAppContext } from "../../context/AppContext";
+import toast from "react-hot-toast";
 
 const Dashboard = () => {
-  const currency = import.meta.env.VITE_CURRENCY || "₹";
+  const { axios, isOwner, currency } = useAppContext();
+
   const [data, setData] = useState({
     totalCars: 0,
     totalBookings: 0,
@@ -32,9 +35,26 @@ const Dashboard = () => {
     },
   ];
 
+  const fetchDashboardData = async () => {
+    try {
+      const { data } = await axios.get("/api/owner/dashboard");
+      // console.log(data);
+
+      if (data.success) {
+        setData(data.dashboardData);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
-    setData(dummyDashboardData);
-  }, []);
+    if (isOwner) {
+      fetchDashboardData();
+    }
+  }, [isOwner]);
   return (
     <div className="px-4 pt-10 md:px-10 flex-1">
       <Title
@@ -44,7 +64,7 @@ const Dashboard = () => {
         }
       />
 
-      <div className="grid sm-grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-8 max-w-3xl">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-8 max-w-3xl">
         {dashboardCards.map((card, index) => (
           <div
             key={index}
@@ -106,7 +126,6 @@ const Dashboard = () => {
             </div>
           ))}
         </div>
-
         {/* monthly revenue */}
         <div
           className="p-4 md:p-6 mb-6 border border-borderColor rounded-md w-full

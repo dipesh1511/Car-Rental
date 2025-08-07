@@ -28,7 +28,7 @@ app.use('/api/user',userRouter)
 // Owner role change route
 app.use('/api/owner', ownerRouter);
 // Booking route
-app.use('/api/booking', bookingRouter);
+app.use('/api/bookings', bookingRouter);
 
 
 
