@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { useParams, useNavigate } from "react-router-dom";
 import { assets, dummyCarData } from "../assets/assets.js";
 import Loader from "../components/Loader.jsx";
@@ -159,7 +158,7 @@ const CarDetails = () => {
           </div>
 
           <button
-            className="w-full bg-primary hover:bg-primary-dull transition-all 
+            className="w-full bg-primary hover:bg-primary-dull transition-all
           py-3 font-medium text-white rounded-xl cursor-pointer"
           >
             Book Now

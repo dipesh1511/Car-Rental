@@ -5,6 +5,7 @@ import connectDB from './configs/db.js';
 import userRouter from './routes/UserRoutes.js';
 import ownerRouter from './routes/ownerRoutes.js';
 import bookingRouter from './routes/bookingRoutes.js';
+import paymentRouter from './routes/paymentRoutes.js';
 
 // Initialize the Express application
 const app = express();
@@ -24,12 +25,13 @@ app.get('/', (req, res) => {
 });
 
 // login signup route
-app.use('/api/user',userRouter)
+app.use('/api/user',userRouter);
 // Owner role change route
 app.use('/api/owner', ownerRouter);
 // Booking route
 app.use('/api/bookings', bookingRouter);
 
+app.use('/api/payments', paymentRouter);
 
 
 app.listen(PORT, () => {

@@ -1,4 +1,3 @@
-
 import mongoose from "mongoose";
 
 const bookingSchema = new mongoose.Schema({
@@ -9,9 +8,13 @@ const bookingSchema = new mongoose.Schema({
     returnDate: { type: Date, required: true },
     status: { type: String, enum: ['pending', 'confirmed', 'cancelled'], default: 'pending' },
     price: { type: Number, required: true },
-    paymentStatus: { type: String, enum: ['paid', 'unpaid'], default: 'unpaid' },
-    
-}, { timestamps: true });  
+    paymentStatus: { type: String, enum: ['Pending', 'paid', 'unpaid'], default: 'unpaid' },
+
+    // ------------------------------------
+    // FIX #3: ADD THE NEW FIELD TO THE SCHEMA
+    razorpayOrderId: { type: String },
+    // ------------------------------------
+}, { timestamps: true });
 
 const Booking = mongoose.model('Booking', bookingSchema);
 
